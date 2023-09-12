@@ -29,6 +29,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapSalasEndpoints();
-
 app.Run();

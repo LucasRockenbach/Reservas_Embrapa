@@ -6,7 +6,7 @@ namespace Aula7.Models
     {
         [Key]
         [Required]
-        public int Id { get; set; }
+        public int IdUsuario { get; set; }
         public string? Nome { get; set; }
         [Required(ErrorMessage = "E-mail é obrigatório")]
         public string? Email { get; set; }

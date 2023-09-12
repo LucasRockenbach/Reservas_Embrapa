@@ -9,5 +9,10 @@ namespace Aula7.Data
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Salas> Salas { get; set; }
+
+        public DbSet<Evento> Eventos { get; set; }
+
+        public DbSet<Reservas> Reservas { get; set; }
+
     }
 }

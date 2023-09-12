@@ -12,55 +12,55 @@ namespace Aula7.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class EventoesController : ControllerBase
     {
         private readonly AulaDbContext _context;
 
-        public UsuariosController(AulaDbContext context)
+        public EventoesController(AulaDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Usuarios
+        // GET: api/Eventoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
+        public async Task<ActionResult<IEnumerable<Evento>>> GetEventos()
         {
-          if (_context.Usuarios == null)
+          if (_context.Eventos == null)
           {
               return NotFound();
           }
-            return await _context.Usuarios.ToListAsync();
+            return await _context.Eventos.ToListAsync();
         }
 
-        // GET: api/Usuarios/5
+        // GET: api/Eventoes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> GetUsuario(int id)
+        public async Task<ActionResult<Evento>> GetEvento(int id)
         {
-          if (_context.Usuarios == null)
+          if (_context.Eventos == null)
           {
               return NotFound();
           }
-            var usuario = await _context.Usuarios.FindAsync(id);
+            var evento = await _context.Eventos.FindAsync(id);
 
-            if (usuario == null)
+            if (evento == null)
             {
                 return NotFound();
             }
 
-            return usuario;
+            return evento;
         }
 
-        // PUT: api/Usuarios/5
+        // PUT: api/Eventoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
+        public async Task<IActionResult> PutEvento(int id, Evento evento)
         {
-            if (id != usuario.IdUsuario)
+            if (id != evento.IdEvento)
             {
                 return BadRequest();
             }
 
-            _context.Entry(usuario).State = EntityState.Modified;
+            _context.Entry(evento).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace Aula7.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UsuarioExists(id))
+                if (!EventoExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace Aula7.Controllers
             return NoContent();
         }
 
-        // POST: api/Usuarios
+        // POST: api/Eventoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
+        public async Task<ActionResult<Evento>> PostEvento(Evento evento)
         {
-          if (_context.Usuarios == null)
+          if (_context.Eventos == null)
           {
-              return Problem("Entity set 'AulaDbContext.Usuarios'  is null.");
+              return Problem("Entity set 'AulaDbContext.Eventos'  is null.");
           }
-            _context.Usuarios.Add(usuario);
+            _context.Eventos.Add(evento);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsuario", new { id = usuario.IdUsuario }, usuario);
+            return CreatedAtAction("GetEvento", new { id = evento.IdEvento }, evento);
         }
 
-        // DELETE: api/Usuarios/5
+        // DELETE: api/Eventoes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsuario(int id)
+        public async Task<IActionResult> DeleteEvento(int id)
         {
-            if (_context.Usuarios == null)
+            if (_context.Eventos == null)
             {
                 return NotFound();
             }
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
+            var evento = await _context.Eventos.FindAsync(id);
+            if (evento == null)
             {
                 return NotFound();
             }
 
-            _context.Usuarios.Remove(usuario);
+            _context.Eventos.Remove(evento);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UsuarioExists(int id)
+        private bool EventoExists(int id)
         {
-            return (_context.Usuarios?.Any(e => e.IdUsuario == id)).GetValueOrDefault();
+            return (_context.Eventos?.Any(e => e.IdEvento == id)).GetValueOrDefault();
         }
     }
 }
