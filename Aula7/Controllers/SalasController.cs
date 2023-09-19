@@ -89,7 +89,11 @@ namespace Aula7.Controllers
           if (_context.Salas == null)
           {
               return Problem("Entity set 'AulaDbContext.Salas'  is null.");
-          }
+            }
+            if (salas.capacidade < 1)
+            {
+                return Problem("Capacidade não pode ser menor que 1");
+            }
             _context.Salas.Add(salas);
             await _context.SaveChangesAsync();
 
