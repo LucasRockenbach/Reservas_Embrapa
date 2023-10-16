@@ -12,18 +12,18 @@ namespace Aula7.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SalasController : ControllerBase
+    public class SalaController : ControllerBase
     {
         private readonly AulaDbContext _context;
 
-        public SalasController(AulaDbContext context)
+        public SalaController(AulaDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Salas
+        // GET: api/Sala
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Salas>>> GetSalas()
+        public async Task<ActionResult<IEnumerable<Sala>>> GetSalas()
         {
           if (_context.Salas == null)
           {
@@ -32,35 +32,35 @@ namespace Aula7.Controllers
             return await _context.Salas.ToListAsync();
         }
 
-        // GET: api/Salas/5
+        // GET: api/Sala/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Salas>> GetSalas(int id)
+        public async Task<ActionResult<Sala>> GetSala(int id)
         {
           if (_context.Salas == null)
           {
               return NotFound();
           }
-            var salas = await _context.Salas.FindAsync(id);
+            var sala = await _context.Salas.FindAsync(id);
 
-            if (salas == null)
+            if (sala == null)
             {
                 return NotFound();
             }
 
-            return salas;
+            return sala;
         }
 
-        // PUT: api/Salas/5
+        // PUT: api/Sala/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSalas(int id, Salas salas)
+        public async Task<IActionResult> PutSala(int id, Sala sala)
         {
-            if (id != salas.idSala)
+            if (id != sala.idSala)
             {
                 return BadRequest();
             }
 
-            _context.Entry(salas).State = EntityState.Modified;
+            _context.Entry(sala).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace Aula7.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SalasExists(id))
+                if (!SalaExists(id))
                 {
                     return NotFound();
                 }
@@ -81,46 +81,42 @@ namespace Aula7.Controllers
             return NoContent();
         }
 
-        // POST: api/Salas
+        // POST: api/Sala
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Salas>> PostSalas(Salas salas)
+        public async Task<ActionResult<Sala>> PostSala(Sala sala)
         {
           if (_context.Salas == null)
           {
               return Problem("Entity set 'AulaDbContext.Salas'  is null.");
-            }
-            if (salas.capacidade < 1)
-            {
-                return Problem("Capacidade não pode ser menor que 1");
-            }
-            _context.Salas.Add(salas);
+          }
+            _context.Salas.Add(sala);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSalas", new { id = salas.idSala }, salas);
+            return CreatedAtAction("GetSala", new { id = sala.idSala }, sala);
         }
 
-        // DELETE: api/Salas/5
+        // DELETE: api/Sala/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSalas(int id)
+        public async Task<IActionResult> DeleteSala(int id)
         {
             if (_context.Salas == null)
             {
                 return NotFound();
             }
-            var salas = await _context.Salas.FindAsync(id);
-            if (salas == null)
+            var sala = await _context.Salas.FindAsync(id);
+            if (sala == null)
             {
                 return NotFound();
             }
 
-            _context.Salas.Remove(salas);
+            _context.Salas.Remove(sala);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool SalasExists(int id)
+        private bool SalaExists(int id)
         {
             return (_context.Salas?.Any(e => e.idSala == id)).GetValueOrDefault();
         }

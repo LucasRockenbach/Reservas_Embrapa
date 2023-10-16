@@ -5,7 +5,7 @@
 namespace Aula7.Migrations
 {
     /// <inheritdoc />
-    public partial class eventos : Migration
+    public partial class usuario : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

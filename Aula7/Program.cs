@@ -1,7 +1,5 @@
 using Aula7.Data;
 using Microsoft.EntityFrameworkCore;
-using Aula7.Controllers;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aula7.Migrations
 {
     [DbContext(typeof(AulaDbContext))]
-    [Migration("20230912184610_eventos")]
-    partial class eventos
+    [Migration("20231016231806_usuario")]
+    partial class usuario
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,34 +22,9 @@ namespace Aula7.Migrations
                 .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Aula7.Models.Evento", b =>
+            modelBuilder.Entity("Aula7.Models.Reserva", b =>
                 {
-                    b.Property<int>("IdEvento")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("dataFim")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("dataInicio")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("descricao")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("nome")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("IdEvento");
-
-                    b.ToTable("Eventos");
-                });
-
-            modelBuilder.Entity("Aula7.Models.Reservas", b =>
-                {
-                    b.Property<int>("id")
+                    b.Property<int>("IdReseva")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -59,48 +34,53 @@ namespace Aula7.Migrations
                     b.Property<DateTime>("DataInicio")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("idEvento")
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("SalaidSala")
                         .HasColumnType("int");
 
-                    b.Property<int>("idSala")
+                    b.Property<int>("UsuarioIdUsuario")
                         .HasColumnType("int");
 
-                    b.Property<int>("idUsuario")
-                        .HasColumnType("int");
+                    b.HasKey("IdReseva");
 
-                    b.HasKey("id");
+                    b.HasIndex("SalaidSala");
+
+                    b.HasIndex("UsuarioIdUsuario");
 
                     b.ToTable("Reservas");
                 });
 
-            modelBuilder.Entity("Aula7.Models.Salas", b =>
+            modelBuilder.Entity("Aula7.Models.Sala", b =>
                 {
                     b.Property<int>("idSala")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("andar")
+                    b.Property<int>("Andar")
                         .HasColumnType("int");
 
-                    b.Property<string>("bloco")
+                    b.Property<string>("Bloco")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("capacidade")
+                    b.Property<int>("Capacidade")
                         .HasColumnType("int");
 
-                    b.Property<string>("descricao")
+                    b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("disponibilidade")
+                    b.Property<bool>("Disponibilidade")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("numero")
+                    b.Property<int>("Numero")
                         .HasColumnType("int");
 
                     b.HasKey("idSala");
@@ -118,19 +98,46 @@ namespace Aula7.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Fone")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("IdUsuario");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Aula7.Models.Reserva", b =>
+                {
+                    b.HasOne("Aula7.Models.Sala", "Sala")
+                        .WithMany("Reserva")
+                        .HasForeignKey("SalaidSala")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aula7.Models.Usuario", "Usuario")
+                        .WithMany("Reserva")
+                        .HasForeignKey("UsuarioIdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sala");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Aula7.Models.Sala", b =>
+                {
+                    b.Navigation("Reserva");
+                });
+
+            modelBuilder.Entity("Aula7.Models.Usuario", b =>
+                {
+                    b.Navigation("Reserva");
                 });
 #pragma warning restore 612, 618
         }

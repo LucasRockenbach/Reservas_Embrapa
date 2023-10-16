@@ -12,55 +12,55 @@ namespace Aula7.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class ReservaController : ControllerBase
     {
         private readonly AulaDbContext _context;
 
-        public UsuariosController(AulaDbContext context)
+        public ReservaController(AulaDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Usuarios
+        // GET: api/Reserva
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
+        public async Task<ActionResult<IEnumerable<Reserva>>> GetReservas()
         {
-          if (_context.Usuarios == null)
+          if (_context.Reservas == null)
           {
               return NotFound();
           }
-            return await _context.Usuarios.ToListAsync();
+            return await _context.Reservas.ToListAsync();
         }
 
-        // GET: api/Usuarios/5
+        // GET: api/Reserva/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> GetUsuario(int id)
+        public async Task<ActionResult<Reserva>> GetReserva(int id)
         {
-          if (_context.Usuarios == null)
+          if (_context.Reservas == null)
           {
               return NotFound();
           }
-            var usuario = await _context.Usuarios.FindAsync(id);
+            var reserva = await _context.Reservas.FindAsync(id);
 
-            if (usuario == null)
+            if (reserva == null)
             {
                 return NotFound();
             }
 
-            return usuario;
+            return reserva;
         }
 
-        // PUT: api/Usuarios/5
+        // PUT: api/Reserva/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
+        public async Task<IActionResult> PutReserva(int id, Reserva reserva)
         {
-            if (id != usuario.IdUsuario)
+            if (id != reserva.IdReseva)
             {
                 return BadRequest();
             }
 
-            _context.Entry(usuario).State = EntityState.Modified;
+            _context.Entry(reserva).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace Aula7.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UsuarioExists(id))
+                if (!ReservaExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace Aula7.Controllers
             return NoContent();
         }
 
-        // POST: api/Usuarios
+        // POST: api/Reserva
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
+        public async Task<ActionResult<Reserva>> PostReserva(Reserva reserva)
         {
-          if (_context.Usuarios == null)
+          if (_context.Reservas == null)
           {
-              return Problem("Entity set 'AulaDbContext.Usuarios'  is null.");
+              return Problem("Entity set 'AulaDbContext.Reservas'  is null.");
           }
-            _context.Usuarios.Add(usuario);
+            _context.Reservas.Add(reserva);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsuario", new { id = usuario.IdUsuario }, usuario);
+            return CreatedAtAction("GetReserva", new { id = reserva.IdReseva }, reserva);
         }
 
-        // DELETE: api/Usuarios/5
+        // DELETE: api/Reserva/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsuario(int id)
+        public async Task<IActionResult> DeleteReserva(int id)
         {
-            if (_context.Usuarios == null)
+            if (_context.Reservas == null)
             {
                 return NotFound();
             }
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
+            var reserva = await _context.Reservas.FindAsync(id);
+            if (reserva == null)
             {
                 return NotFound();
             }
 
-            _context.Usuarios.Remove(usuario);
+            _context.Reservas.Remove(reserva);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UsuarioExists(int id)
+        private bool ReservaExists(int id)
         {
-            return (_context.Usuarios?.Any(e => e.IdUsuario == id)).GetValueOrDefault();
+            return (_context.Reservas?.Any(e => e.IdReseva == id)).GetValueOrDefault();
         }
     }
 }

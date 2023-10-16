@@ -5,7 +5,7 @@
 namespace Aula7.Migrations
 {
     /// <inheritdoc />
-    public partial class salas : Migration
+    public partial class reserva : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

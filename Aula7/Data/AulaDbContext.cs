@@ -8,11 +8,8 @@ namespace Aula7.Data
         public AulaDbContext (DbContextOptions <AulaDbContext> options): base(options) { }
 
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Salas> Salas { get; set; }
-
-        public DbSet<Evento> Eventos { get; set; }
-
-        public DbSet<Reservas> Reservas { get; set; }
+        public DbSet<Sala> Salas { get; set; }
+        public DbSet<Reserva> Reservas { get; set; }
 
     }
 }
