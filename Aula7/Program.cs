@@ -2,6 +2,19 @@ using Aula7.Data;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://10.133.32.139:19006")
+                                                  .AllowAnyHeader()
+                                                  .AllowAnyMethod();
+                      });
+});
+
 // Add services to the container.
 
 var connectionStringMySql = builder.Configuration.GetConnectionString("ConnectionMySql");
@@ -20,6 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 
