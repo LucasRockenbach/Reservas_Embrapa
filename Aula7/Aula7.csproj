@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Aula7</RootNamespace>
     <RuntimeFrameworkVersion>7.0.5</RuntimeFrameworkVersion>
   </PropertyGroup>
 
