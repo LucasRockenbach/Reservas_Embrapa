@@ -2,7 +2,13 @@ using Aula7.Data;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+#region[Cors]
+builder.Services.AddCors();
+#endregion
+
+
+/*var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
 {
@@ -13,12 +19,18 @@ builder.Services.AddCors(options =>
                                                   .AllowAnyHeader()
                                                   .AllowAnyMethod();
                       });
-});
+});*/
+
+
+
+
 
 // Add services to the container.
 
-var connectionStringMySql = builder.Configuration.GetConnectionString("ConnectionMySql");
-builder.Services.AddDbContext<AulaDbContext>(x => x.UseMySQL(connectionStringMySql));
+/*var connectionStringMySql = builder.Configuration.GetConnectionString("ConnectionMySql");
+builder.Services.AddDbContext<AulaDbContext>(x => x.UseMySQL(connectionStringMySql));*/
+
+var connection = builder.Configuration.GetConnectionString("ConnectionPostgres");
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -34,9 +46,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(MyAllowSpecificOrigins);
+//app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
+
+#region [Cors]
+app.UseCors(c =>
+{
+    c.AllowAnyHeader();
+    c.AllowAnyMethod();
+    c.AllowAnyOrigin();
+});
+#endregion
 
 app.UseAuthorization();
 
