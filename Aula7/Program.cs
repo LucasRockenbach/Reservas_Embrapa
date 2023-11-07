@@ -1,5 +1,6 @@
 using Aula7.Data;
 using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionStringPgSql =
@@ -12,30 +13,16 @@ builder.Services.AddDbContext<AulaDbContext>(
 builder.Services.AddCors();
 #endregion
 
-
-/*var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("*")
-                                                  .AllowAnyHeader()
-                                                  .AllowAnyMethod();
-                      });
-});*/
-
-
-
-
+var connectionStringPgSql =
+ builder.Configuration.GetConnectionString("PostgreConn");
+builder.Services.AddDbContext<AulaDbContext>(
+ context => context.UseNpgsql(connectionStringPgSql));
 
 // Add services to the container.
 
 /*var connectionStringMySql = builder.Configuration.GetConnectionString("ConnectionMySql");
 builder.Services.AddDbContext<AulaDbContext>(x => x.UseMySQL(connectionStringMySql));*/
 
-var connection = builder.Configuration.GetConnectionString("ConnectionPostgres");
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
