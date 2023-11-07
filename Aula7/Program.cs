@@ -2,6 +2,11 @@ using Aula7.Data;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionStringPgSql =
+ builder.Configuration.GetConnectionString("PostgreConn");
+builder.Services.AddDbContext<AulaDbContext>(
+ context => context.UseNpgsql(connectionStringPgSql));
+
 
 #region[Cors]
 builder.Services.AddCors();
