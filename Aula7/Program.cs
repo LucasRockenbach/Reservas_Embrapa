@@ -13,11 +13,6 @@ builder.Services.AddDbContext<AulaDbContext>(
 builder.Services.AddCors();
 #endregion
 
-var connectionStringPgSql =
- builder.Configuration.GetConnectionString("PostgreConn");
-builder.Services.AddDbContext<AulaDbContext>(
- context => context.UseNpgsql(connectionStringPgSql));
-
 // Add services to the container.
 
 /*var connectionStringMySql = builder.Configuration.GetConnectionString("ConnectionMySql");

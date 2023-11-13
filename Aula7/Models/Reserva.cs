@@ -13,6 +13,8 @@ namespace Aula7.Models
         public Usuario Usuario { get; set; } = null!;
 
         public Sala Sala {  get; set; } = null!;
+        public int idUsuario { get; set; }
+        public int idSala { get; set; }
 
         public string Descricao { get; set; } = null!;
         public DateTime DataInicio { get; set; }

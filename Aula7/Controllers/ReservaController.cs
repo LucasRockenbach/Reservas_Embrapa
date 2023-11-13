@@ -84,12 +84,24 @@ namespace Aula7.Controllers
         // POST: api/Reserva
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Reserva>> PostReserva(Reserva reserva)
+        public async Task<ActionResult<Reserva>> PostReserva(ReservaPostDto model)
         {
           if (_context.Reservas == null)
           {
               return Problem("Entity set 'AulaDbContext.Reservas'  is null.");
           }
+
+            var reserva = new Reserva
+            {   
+                idUsuario = model.idUsuario,
+                Usuario = await _context.Usuarios.FindAsync(model.idUsuario),
+                idSala = model.idSala,
+                Descricao = model.Descricao,
+                Sala = await _context.Salas.FindAsync(model.idSala),
+                DataFim = model.DataFim,
+                DataInicio = model.DataInicio
+            };
+
             _context.Reservas.Add(reserva);
             await _context.SaveChangesAsync();
 

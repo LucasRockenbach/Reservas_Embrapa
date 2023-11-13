@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Aula7.Data;
 
 namespace Aula7.Models
@@ -8,6 +9,7 @@ namespace Aula7.Models
         [Required]
         [Key]
         public int idSala { get; set; }
+        [JsonIgnore]
         public ICollection<Reserva> Reserva { get; set; } = new List<Reserva>();
         public string Nome { get; set; }
         public int Capacidade { get; set; }
