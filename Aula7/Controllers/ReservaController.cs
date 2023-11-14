@@ -86,18 +86,34 @@ namespace Aula7.Controllers
         [HttpPost]
         public async Task<ActionResult<Reserva>> PostReserva(ReservaPostDto model)
         {
-          if (_context.Reservas == null)
-          {
-              return Problem("Entity set 'AulaDbContext.Reservas'  is null.");
-          }
+            if (_context.Reservas == null)
+            {
+                return Problem("Entity set 'AulaDbContext.Reservas' is null.");
+            }
+
+            // Procurar o usuário pelo nome
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Nome == model.nomeUsuario);
+            if (usuario == null)
+            {
+                // Se o usuário não existir, você pode criar um novo usuário ou retornar um erro, dependendo dos requisitos do seu aplicativo.
+                // Aqui, estou retornando um erro NotFound.
+                return NotFound($"Usuário com nome {model.nomeUsuario} não encontrado.");
+            }
+
+            // Procurar a sala pelo nome
+            var sala = await _context.Salas.FirstOrDefaultAsync(s => s.Nome == model.nomeSala);
+            if (sala == null)
+            {
+                // Se a sala não existir, você pode criar uma nova sala ou retornar um erro, dependendo dos requisitos do seu aplicativo.
+                // Aqui, estou retornando um erro NotFound.
+                return NotFound($"Sala com nome {model.nomeSala} não encontrada.");
+            }
 
             var reserva = new Reserva
-            {   
-                idUsuario = model.idUsuario,
-                Usuario = await _context.Usuarios.FindAsync(model.idUsuario),
-                idSala = model.idSala,
+            {
+                Usuario = usuario,
+                Sala = sala,
                 Descricao = model.Descricao,
-                Sala = await _context.Salas.FindAsync(model.idSala),
                 DataFim = model.DataFim,
                 DataInicio = model.DataInicio
             };
