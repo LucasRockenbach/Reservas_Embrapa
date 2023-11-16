@@ -21,26 +21,39 @@ namespace Aula7.Controllers
             _context = context;
         }
 
-        // GET: api/Reserva
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Reserva>>> GetReservas()
         {
-          if (_context.Reservas == null)
-          {
-              return NotFound();
-          }
-            return await _context.Reservas.ToListAsync();
+            if (_context.Reservas == null)
+            {
+                return NotFound();
+            }
+
+            // Inclua as informações da sala e do usuário associadas a cada reserva
+            var reservas = await _context.Reservas
+                .Include(r => r.Sala)
+                .Include(r => r.Usuario)
+                .ToListAsync();
+
+            return reservas;
         }
 
+
+
         // GET: api/Reserva/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Reserva>> GetReserva(int id)
+        [HttpGet("{id}/")]
+        public async Task<ActionResult<Reserva>> GetReservaID(int id)
         {
-          if (_context.Reservas == null)
-          {
-              return NotFound();
-          }
-            var reserva = await _context.Reservas.FindAsync(id);
+            if (_context.Reservas == null)
+            {
+                return NotFound();
+            }
+
+            // Inclua as informações da sala e do usuário associadas a esta reserva específica
+            var reserva = await _context.Reservas
+                .Include(r => r.Sala)
+                .Include(r => r.Usuario)
+                .FirstOrDefaultAsync(r => r.IdReseva == id);
 
             if (reserva == null)
             {

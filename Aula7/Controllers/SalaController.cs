@@ -50,6 +50,23 @@ namespace Aula7.Controllers
             return sala;
         }
 
+
+        [HttpGet("{id}/reservas")]
+        public async Task<ActionResult<IEnumerable<Reserva>>> GetReservasDaSala(int id)
+        {
+            var sala = await _context.Salas
+                .Include(s => s.Reserva)
+                    .ThenInclude(r => r.Usuario) // Inclua as informações do usuário
+                .FirstOrDefaultAsync(s => s.idSala == id);
+
+            if (sala == null)
+            {
+                return NotFound();
+            }
+
+            return sala.Reserva.ToList();
+        }
+
         // PUT: api/Sala/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

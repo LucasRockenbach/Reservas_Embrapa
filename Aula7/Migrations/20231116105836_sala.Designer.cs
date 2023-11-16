@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Aula7.Migrations
 {
     [DbContext(typeof(AulaDbContext))]
-    [Migration("20231107132436_sala")]
+    [Migration("20231116105836_sala")]
     partial class sala
     {
         /// <inheritdoc />
@@ -47,6 +47,12 @@ namespace Aula7.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("UsuarioIdUsuario")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("idSala")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("idUsuario")
                         .HasColumnType("integer");
 
                     b.HasKey("IdReseva");

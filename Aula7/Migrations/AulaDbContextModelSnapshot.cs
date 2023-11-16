@@ -46,6 +46,12 @@ namespace Aula7.Migrations
                     b.Property<int>("UsuarioIdUsuario")
                         .HasColumnType("integer");
 
+                    b.Property<int>("idSala")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("idUsuario")
+                        .HasColumnType("integer");
+
                     b.HasKey("IdReseva");
 
                     b.HasIndex("SalaidSala");
