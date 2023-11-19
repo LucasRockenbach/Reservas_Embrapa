@@ -30,11 +30,11 @@ namespace Aula7.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdReseva"));
 
-                    b.Property<DateTime>("DataFim")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("DataFim")
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("DataInicio")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("DataInicio")
+                        .HasColumnType("text");
 
                     b.Property<string>("Descricao")
                         .IsRequired()

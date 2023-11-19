@@ -8,17 +8,17 @@ namespace Aula7.Models
     {
         [Key]
 
-        public int IdReseva {  get; set; }
+        public int IdReseva { get; set; }
 
         public Usuario Usuario { get; set; } = null!;
 
-        public Sala Sala {  get; set; } = null!;
+        public Sala Sala { get; set; } = null!;
         public int idUsuario { get; set; }
         public int idSala { get; set; }
 
         public string Descricao { get; set; } = null!;
-        public DateTime DataInicio { get; set; }
-        public DateTime DataFim { get; set; }
+        public string DataInicio { get; set; }
+        public string DataFim { get; set; }
 
     }
 }

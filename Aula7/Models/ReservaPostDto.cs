@@ -11,8 +11,8 @@ namespace Aula7.Models
         public string nomeUsuario { get; set; }
         public string nomeSala { get; set; }
         public string Descricao { get; set; } = null!;
-        public DateTime DataInicio { get; set; }
-        public DateTime DataFim { get; set; }
+        public string DataInicio { get; set; }
+        public string DataFim { get; set; }
 
     }
 }
