@@ -25,33 +25,20 @@ namespace Aula7.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
-          if (_context.Usuarios == null)
-          {
-              return NotFound();
-          }
-            return await _context.Usuarios.ToListAsync();
-        }
+            var usuarios = await _context.Usuarios
+                .Include(u => u.Reserva)
+                    .ThenInclude(s => s.Sala)
+                .ToListAsync();
 
-        // GET: api/Usuario/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> GetUsuario(int id)
-        {
-          if (_context.Usuarios == null)
-          {
-              return NotFound();
-          }
-            var usuario = await _context.Usuarios.FindAsync(id);
-
-            if (usuario == null)
+            if (usuarios == null)
             {
                 return NotFound();
             }
 
-            return usuario;
+            return usuarios;
         }
 
-
-        [HttpGet("{id}/reservas")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Reserva>>> GetReservasDaSala(int id)
         {
             var usuario = await _context.Usuarios

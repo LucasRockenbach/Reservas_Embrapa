@@ -32,26 +32,8 @@ namespace Aula7.Controllers
             return await _context.Salas.ToListAsync();
         }
 
-        // GET: api/Sala/5
+        
         [HttpGet("{id}")]
-        public async Task<ActionResult<Sala>> GetSala(int id)
-        {
-          if (_context.Salas == null)
-          {
-              return NotFound();
-          }
-            var sala = await _context.Salas.FindAsync(id);
-
-            if (sala == null)
-            {
-                return NotFound();
-            }
-
-            return sala;
-        }
-
-
-        [HttpGet("{id}/reservas")]
         public async Task<ActionResult<IEnumerable<Reserva>>> GetReservasDaSala(int id)
         {
             var sala = await _context.Salas
